@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" width="760" height="420">
+  <defs>
+    <style>
+      .box { fill:#0f172a; stroke:#34d399; stroke-width:2; rx:10; }
+      .lbl { fill:#e2e8f0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:14px; }
+      .sub { fill:#94a3b8; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:11px; }
+      .arr { fill:none; stroke:#fbbf24; stroke-width:2.5; marker-end:url(#arr); }
+      .dot { fill:#fbbf24; }
+      .pulse { animation: p 2.5s infinite; }
+      @keyframes p { 0%{opacity:.2} 50%{opacity:1} 100%{opacity:.2} }
+    </style>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#fbbf24"/>
+    </marker>
+  </defs>
+  <rect width="760" height="420" fill="#020617"/>
+  <text x="24" y="34" class="lbl" font-size="16">synthetic-data-factory · quality pipeline</text>
+
+  <rect class="box" x="40" y="90" width="120" height="70"/>
+  <text x="58" y="118" class="lbl">seed</text>
+  <text x="58" y="138" class="sub">5–20 examples</text>
+
+  <rect class="box" x="200" y="90" width="120" height="70"/>
+  <text x="218" y="118" class="lbl">expand</text>
+  <text x="218" y="138" class="sub">paraphrase + edge</text>
+
+  <rect class="box" x="360" y="90" width="120" height="70"/>
+  <text x="378" y="118" class="lbl">filter</text>
+  <text x="378" y="138" class="sub">independent judge</text>
+
+  <rect class="box" x="520" y="90" width="120" height="70"/>
+  <text x="538" y="118" class="lbl">dedup</text>
+  <text x="538" y="138" class="sub">cosine similarity</text>
+
+  <rect class="box" x="680" y="90" width="60" height="70"/>
+  <text x="692" y="118" class="lbl">export</text>
+  <text x="692" y="138" class="sub">JSONL</text>
+
+  <rect class="box" x="200" y="250" width="360" height="70"/>
+  <text x="218" y="278" class="lbl">quality gate</text>
+  <text x="218" y="298" class="sub">every shipped example has a score · no self-grading</text>
+
+  <path class="arr pulse" d="M160 125 L200 125"/>
+  <path class="arr pulse" d="M320 125 L360 125" style="animation-delay:.4s"/>
+  <path class="arr pulse" d="M480 125 L520 125" style="animation-delay:.8s"/>
+  <path class="arr pulse" d="M640 125 L680 125" style="animation-delay:1.2s"/>
+  <path class="arr pulse" d="M420 160 L420 250" style="animation-delay:1.6s"/>
+  <path class="arr pulse" d="M200 285 L160 285 L160 160" style="animation-delay:2.0s"/>
+
+  <circle class="dot pulse" cx="160" cy="125" r="4"/>
+  <circle class="dot pulse" cx="320" cy="125" r="4" style="animation-delay:.4s"/>
+  <circle class="dot pulse" cx="480" cy="125" r="4" style="animation-delay:.8s"/>
+  <circle class="dot pulse" cx="640" cy="125" r="4" style="animation-delay:1.2s"/>
+  <circle class="dot pulse" cx="420" cy="250" r="4" style="animation-delay:1.6s"/>
+  <circle class="dot pulse" cx="160" cy="160" r="4" style="animation-delay:2.0s"/>
+
+  <text x="24" y="400" class="sub">yellow dots move left to right; low-scoring candidates are dropped before export</text>
+</svg>
