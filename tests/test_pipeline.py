@@ -1,7 +1,9 @@
-from factory.pipeline import run
-from factory.seed import Example
 import json, tempfile
 from pathlib import Path
+
+from factory.pipeline import run
+from factory.seed import Example, load_seeds
+from factory.filter import filter_candidates
 
 
 def stub(prompt):
@@ -32,8 +34,27 @@ def test_empty_seeds():
 
 
 def test_filter_drops_low_score():
-    from factory.filter import filter_candidates
     seeds = [Example("a", "b")]
     cands = [Example("a", "b2"), Example("c", "d")]
     kept = filter_candidates(cands, seeds, lambda p: json.dumps({"faithfulness": 3, "keep": False}), min_score=6)
     assert kept == []
+
+
+def test_load_seeds_rejects_bad_json(tmp_path):
+    p = tmp_path / "bad.json"
+    p.write_text("{not-json")
+    try:
+        load_seeds(p)
+        assert False, "expected ValueError"
+    except ValueError:
+        pass
+
+
+def test_load_seeds_rejects_non_list(tmp_path):
+    p = tmp_path / "obj.json"
+    p.write_text('{"a": 1}')
+    try:
+        load_seeds(p)
+        assert False, "expected ValueError"
+    except ValueError:
+        pass
