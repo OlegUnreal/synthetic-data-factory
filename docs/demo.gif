@@ -1,0 +1,9 @@
+GIF placeholder — replace with a real recording.
+
+Record with:
+
+```bash
+python -m factory --demo
+```
+
+Then convert the recording to GIF and commit it here.
