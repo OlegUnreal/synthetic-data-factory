@@ -28,6 +28,7 @@ def _call(prompt: str, system: str, model: str = "gpt-4o-mini") -> str:
         model=model,
         messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}],
         temperature=0.7,
+        timeout=30,
     )
     return (resp.choices[0].message.content or "").strip()
 
@@ -52,10 +53,8 @@ def make_filter(model: str = "gpt-4o-mini") -> Callable[[str], int]:
 
 def live_run(seeds_path, out_path, threshold: int = 6) -> int:
     from .pipeline import run
-    from .seed import Example
     llm = make_llm()
     fltr = make_filter()
-    # wrap filter to use the scorer
     import factory.filter as fmod
     fmod.score = fltr  # type: ignore
-    return run(seeds_path, out_path, llm)
+    return run(seeds_path, out_path, llm, min_score=threshold)
