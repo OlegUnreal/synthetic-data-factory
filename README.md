@@ -47,7 +47,7 @@ factory/
 └── demo_llm.py        # live run with real OpenAI
 ```
 
-## Quick start
+## How to run
 
 ```bash
 git clone https://github.com/OlegUnreal/synthetic-data-factory.git
@@ -69,6 +69,12 @@ python -m factory seeds.json out.jsonl
 pytest -q
 ```
 
+Windows notes:
+
+- Activate with `.venv\Scripts\activate`.
+- The dedup step needs `numpy`, which installs cleanly on Windows via pip wheels — no compiler required.
+- Output JSONL is UTF-8; open it in any editor or feed it straight to an OpenAI fine-tuning job.
+
 ### Seed file format
 
 ```json
@@ -77,6 +83,17 @@ pytest -q
   {"input": "Summarize: ...", "output": "..."}
 ]
 ```
+
+## Libraries used and why
+
+| Library | Version | Why it is here |
+|---|---|---|
+| `openai` | `>=1.40` | Client for both the expander and the independent judge. Two separate calls with different system prompts — the judge never sees the expander's instructions, which is what makes the quality gate honest. |
+| `numpy` | `>=1.26` | Powers the cosine-similarity dedup. Embeddings are plain float arrays; numpy's vectorised ops make similarity checks over hundreds of candidates near-instant, with no extra ML framework. |
+| `python-dotenv` | `>=1.0` | Loads `.env` for the API key. |
+| `pytest` | `>=8.0` | (dev) Tests for seed validation, judge scoring, dedup threshold, and end-to-end pipeline with a stub LLM. |
+
+No embedding model dependency on purpose: the dedup step accepts any list of float vectors, so you can swap in OpenAI embeddings, a local sentence-transformer, or even random vectors for tests without touching pipeline code.
 
 ## Configuration
 
