@@ -1,5 +1,7 @@
 # synthetic-data-factory
 
+[![CI](https://github.com/OlegUnreal/synthetic-data-factory/actions/workflows/ci.yml/badge.svg)](https://github.com/OlegUnreal/synthetic-data-factory/actions/workflows/ci.yml)
+
 Turns a handful of seed examples into a large, quality-filtered training dataset — the data half of fine-tuning, done properly.
 
 ## The idea
