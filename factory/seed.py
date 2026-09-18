@@ -13,6 +13,17 @@ class Example:
     tag: str = ""
 
 
+def example_text(example: "Example") -> str:
+    """The canonical string an example *is*: prompt, then completion.
+
+    Quality metrics and train/val/test splits identify an example by this, so a
+    paraphrased answer counts as new information. Dedup deliberately looks at
+    ``input`` only (see :func:`factory.dedup._text_of`): two prompts with the
+    same wording but different answers are still a duplicated prompt.
+    """
+    return f"{example.input}\n{example.output}"
+
+
 def load_seeds(path: Path) -> list[Example]:
     if not path.exists():
         raise FileNotFoundError(f"seeds file not found: {path}")
