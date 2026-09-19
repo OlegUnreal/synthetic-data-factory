@@ -142,7 +142,7 @@ No heavyweight vector DB or torch dependency: hashing and LSA embedders run anyw
 ## Testing
 
 ```bash
-pytest -q
+pytest -q                              # 28 passed
 pytest -v tests/test_ai_stack.py  # embeddings, ANN, dedup, metrics, splits, manifest
 pytest -v tests/test_dedup.py     # cosine near-dedup
 pytest -v tests/test_pipeline.py  # end-to-end with stub LLM
@@ -177,3 +177,5 @@ Working prototype with real LLM integration, embedding-backed dedup, quality gat
 ## License
 
 MIT.
+
+*Last updated: 2026-09-19*
